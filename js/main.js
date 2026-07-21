@@ -108,7 +108,49 @@ document.addEventListener('DOMContentLoaded', () => {
     toTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
   }
 
-  /* Basic form handling (demo — no backend wired up) */
+  /* Quote request form -> Cloudflare Worker (/api/quote) -> Resend email */
+  const quoteForm = document.querySelector('#quote-form');
+  if (quoteForm) {
+    quoteForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const submitBtn = quoteForm.querySelector('button[type="submit"]');
+      const successNote = quoteForm.querySelector('.form-success');
+      const errorNote = quoteForm.querySelector('.form-error');
+      const originalBtnText = submitBtn.textContent;
+
+      if (successNote) successNote.hidden = true;
+      if (errorNote) errorNote.hidden = true;
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Sending…';
+
+      try {
+        const formData = new FormData(quoteForm);
+        const res = await fetch('/api/quote', { method: 'POST', body: formData });
+        const data = await res.json().catch(() => ({}));
+
+        if (!res.ok || !data.ok) {
+          throw new Error(data.error || 'Something went wrong. Please try again or call us directly.');
+        }
+
+        if (successNote) {
+          successNote.hidden = false;
+          successNote.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+        quoteForm.reset();
+      } catch (err) {
+        if (errorNote) {
+          errorNote.hidden = false;
+          errorNote.textContent = '⚠ ' + (err.message || 'Something went wrong. Please try again or call us directly.');
+          errorNote.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = originalBtnText;
+      }
+    });
+  }
+
+  /* Basic form handling for remaining demo forms (e.g. newsletter) — no backend wired up */
   document.querySelectorAll('form[data-demo-form]').forEach(form => {
     form.addEventListener('submit', (e) => {
       e.preventDefault();
