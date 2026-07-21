@@ -14,7 +14,8 @@
   ],
   "vars": {
     "QUOTE_RECIPIENT_EMAIL": "quote@prontocleaning.co.ke"
-  },  "observability": {
+  },
+  "observability": {
     "enabled": false,
     "head_sampling_rate": 1,
     "logs": {
