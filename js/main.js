@@ -111,38 +111,28 @@ document.addEventListener('DOMContentLoaded', () => {
   /* Quote request form -> Cloudflare Worker (/api/quote) -> Resend email */
   const quoteForm = document.querySelector('#quote-form');
   if (quoteForm) {
-    /* The general form on contact.html lets visitors pick a service from a dropdown
-       (dedicated quote-*.html pages fix the service instead, so this only applies there) */
+    /* The general form on contact.html lets visitors pick a service from a dropdown;
+       each service has its own dedicated form on a quote-*.html page, so send them there */
     const cleaningTypeSelect = quoteForm.querySelector('#q-cleaning-type');
     if (cleaningTypeSelect) {
-      const roomFields = quoteForm.querySelectorAll('[data-room-field]');
-      const sqftLabel = quoteForm.querySelector('label[for="q-sqft"]');
-      const SQFT_LABELS = {
-        'Landscaping & Grounds Maintenance': 'Approximate Lawn / Grounds Size (sq ft)',
-        'Fumigation & Pest Control': 'Approximate Property Size (sq ft)',
-        'Sanitary & Garbage Collection': 'Approximate Property Size (sq ft)',
-      };
-      /* Bedrooms/bathrooms only make sense for services scoped to a home's room count */
-      const HIDE_ROOM_FIELDS_FOR = new Set([
-        'Commercial Cleaning',
-        'Office Cleaning',
-        'Fumigation & Pest Control',
-        'Landscaping & Grounds Maintenance',
-        'Sanitary & Garbage Collection',
-      ]);
-
-      const applyServiceFields = () => {
-        const service = cleaningTypeSelect.value;
-        roomFields.forEach(field => { field.hidden = HIDE_ROOM_FIELDS_FOR.has(service); });
-        if (sqftLabel) sqftLabel.textContent = SQFT_LABELS[service] || 'Approximate Square Footage';
+      const SERVICE_PAGES = {
+        'Residential Cleaning': 'quote-residential.html',
+        'Commercial Cleaning': 'quote-commercial.html',
+        'Eco Deep Clean': 'quote-deep-clean.html',
+        'Move In / Move Out': 'quote-move.html',
+        'Post-Construction Cleaning': 'quote-construction.html',
+        'Office Cleaning': 'quote-office.html',
+        'Recurring Cleaning': 'quote-recurring.html',
+        'Vacation Rental Cleaning': 'quote-vacation-rental.html',
+        'Fumigation & Pest Control': 'quote-fumigation.html',
+        'Landscaping & Grounds Maintenance': 'quote-landscaping.html',
+        'Sanitary & Garbage Collection': 'quote-sanitary.html',
       };
 
-      const preselected = new URLSearchParams(window.location.search).get('service');
-      if (preselected && [...cleaningTypeSelect.options].some(o => o.value === preselected)) {
-        cleaningTypeSelect.value = preselected;
-      }
-      applyServiceFields();
-      cleaningTypeSelect.addEventListener('change', applyServiceFields);
+      cleaningTypeSelect.addEventListener('change', () => {
+        const page = SERVICE_PAGES[cleaningTypeSelect.value];
+        if (page) window.location.href = page;
+      });
     }
 
     quoteForm.addEventListener('submit', async (e) => {
