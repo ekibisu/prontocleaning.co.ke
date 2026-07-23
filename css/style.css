@@ -327,6 +327,7 @@ section{ padding: 88px 0; scroll-margin-top: 84px; }
 .form-grid{ display:grid; grid-template-columns: 1fr 1fr; gap: 20px; }
 .form-field{ display:flex; flex-direction:column; gap:6px; }
 .form-field.full{ grid-column: 1 / -1; }
+.form-field[hidden]{ display:none; }
 label{ font-size:0.85rem; font-weight:700; color: var(--midnight); }
 input,select,textarea{
   font-family: var(--font-body); font-size:0.95rem; padding: 13px 14px; border-radius: var(--radius-sm);
