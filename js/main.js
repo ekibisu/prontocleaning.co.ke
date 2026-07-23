@@ -111,6 +111,37 @@ document.addEventListener('DOMContentLoaded', () => {
   /* Quote request form -> Cloudflare Worker (/api/quote) -> Resend email */
   const quoteForm = document.querySelector('#quote-form');
   if (quoteForm) {
+    /* Adapt the form to whichever service the visitor came from (services.html "Get a Quote" links pass ?service=...) */
+    const cleaningTypeSelect = quoteForm.querySelector('#q-cleaning-type');
+    const roomFields = quoteForm.querySelectorAll('[data-room-field]');
+    const sqftLabel = quoteForm.querySelector('label[for="q-sqft"]');
+    const SQFT_LABELS = {
+      'Landscaping & Grounds Maintenance': 'Approximate Lawn / Grounds Size (sq ft)',
+      'Fumigation & Pest Control': 'Approximate Property Size (sq ft)',
+      'Sanitary & Garbage Collection': 'Approximate Property Size (sq ft)',
+    };
+    /* Bedrooms/bathrooms only make sense for services scoped to a home's room count */
+    const HIDE_ROOM_FIELDS_FOR = new Set([
+      'Commercial Cleaning',
+      'Office Cleaning',
+      'Fumigation & Pest Control',
+      'Landscaping & Grounds Maintenance',
+      'Sanitary & Garbage Collection',
+    ]);
+
+    const applyServiceFields = () => {
+      const service = cleaningTypeSelect.value;
+      roomFields.forEach(field => { field.hidden = HIDE_ROOM_FIELDS_FOR.has(service); });
+      if (sqftLabel) sqftLabel.textContent = SQFT_LABELS[service] || 'Approximate Square Footage';
+    };
+
+    const preselected = new URLSearchParams(window.location.search).get('service');
+    if (preselected && [...cleaningTypeSelect.options].some(o => o.value === preselected)) {
+      cleaningTypeSelect.value = preselected;
+    }
+    applyServiceFields();
+    cleaningTypeSelect.addEventListener('change', applyServiceFields);
+
     quoteForm.addEventListener('submit', async (e) => {
       e.preventDefault();
       const submitBtn = quoteForm.querySelector('button[type="submit"]');
