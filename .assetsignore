@@ -4,3 +4,8 @@ wrangler.jsonc
 .assetsignore
 functions/
 node_modules/
+.git/
+.wrangler/
+.claude/
+package.json
+package-lock.json
