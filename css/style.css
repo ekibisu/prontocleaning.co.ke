@@ -198,7 +198,7 @@ section{ padding: 88px 0; scroll-margin-top: 84px; }
 .hero-badge{ background: var(--cloud); border:1px solid rgba(22,42,44,0.1); border-radius:999px; padding:8px 16px; font-size:0.82rem; font-weight:600; color: var(--forest); display:flex; align-items:center; gap:6px;}
 .hero-actions{ display:flex; gap:14px; margin-top: 30px; flex-wrap:wrap; }
 .hero-art{ position:relative; }
-.hero-logo-medallion{
+.art-block.hero-logo-medallion{
   background: linear-gradient(160deg, var(--cream) 0%, var(--sky) 100%);
   position: relative; overflow: hidden;
 }
@@ -206,7 +206,7 @@ section{ padding: 88px 0; scroll-margin-top: 84px; }
   position:absolute; right:-15%; top:-18%; width:65%; height:65%;
   background: var(--sage); opacity:0.25; border-radius:50%;
 }
-.hero-logo-medallion svg{ width:44%; height:44%; position:relative; z-index:1; }
+.art-block.hero-logo-medallion svg{ width:44%; height:44%; position:relative; z-index:1; }
 @media (max-width: 900px){ .hero-grid{ grid-template-columns:1fr; } .hero{ padding-top:48px; } }
 
 /* Trust bar */
