@@ -118,7 +118,7 @@ section{ padding: 88px 0; scroll-margin-top: 84px; }
   0%, 100%{ transform:scale(1); }
   50%{ transform:scale(1.035); }
 }
-.logo-hero-mark{ transform-origin:50% 50%; animation:leafBreathe 3.6s ease-in-out 1.1s infinite; }
+.logo-hero-mark{ transform-origin:32px 32px; animation:leafBreathe 3.6s ease-in-out 1.1s infinite; }
 
 /* ---------- Eyebrow / label ---------- */
 .eyebrow{
