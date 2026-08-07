@@ -202,13 +202,6 @@ section{ padding: 88px 0; scroll-margin-top: 84px; }
   background: linear-gradient(160deg, var(--cream) 0%, var(--sky) 100%);
   position: relative; overflow: hidden;
 }
-@keyframes leafBreathe{
-  0%, 100%{ transform:scale(1); }
-  50%{ transform:scale(1.035); }
-}
-@media (prefers-reduced-motion: no-preference){
-  .art-block.hero-logo-medallion{ transform-origin:center; animation:leafBreathe 3.6s ease-in-out 1.1s infinite; }
-}
 .hero-logo-circle{
   position:absolute; right:-15%; top:-18%; width:65%; height:65%;
   background: var(--sage); opacity:0.25; border-radius:50%;
