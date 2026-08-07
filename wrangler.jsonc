@@ -13,7 +13,8 @@
     { "pattern": "www.prontocleaning.co.ke", "zone_name": "prontocleaning.co.ke", "custom_domain": true }
   ],
   "vars": {
-    "QUOTE_RECIPIENT_EMAIL": "quote@prontocleaning.co.ke"
+    "QUOTE_RECIPIENT_EMAIL": "quote@prontocleaning.co.ke",
+    "HELLO_RECIPIENT_EMAIL": "hello@prontocleaning.co.ke"
   },
   "observability": {
     "enabled": false,
